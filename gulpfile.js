@@ -37,27 +37,27 @@ function clean() {
     .pipe(gclean());
 }
 
+function copyImages(){
+  return gulp
+    .src(['./src/assets/img/**/*'])
+    .pipe(gulp.dest('./dist/assets/img/'))
+}
 
 function sass() {
-  const postPlugins = [
-    autoprefixer(),
-    cssnano()
-  ];
-
   return gulp.src(scss)
     .pipe(sourcemaps.init())
     .pipe(gsass().on('error', gsass.logError))
     .pipe(sourcemaps.write())
     .pipe(minifyCss())
     .pipe(rename('style-min.css'))
-    //.pipe(postcss(postPlugins))
     .pipe(gulp.dest(dist+css))
 }
 
-const build = gulp.series(clean, sass);
+const build = gulp.series(clean, gulp.parallel(sass, copyImages));
 
 
 exports.clean = clean;
 exports.sass = sass;
+exports.copyImages = copyImages;
 exports.build = build;
 exports.default = build;

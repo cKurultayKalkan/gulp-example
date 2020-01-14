@@ -34,15 +34,32 @@ const  sourceJs = [
 ];
 
 
+function compile() {
+  const twig = require('gulp-twig');
+  return gulp.src('./src/templates/pages/*.html')
+      .pipe(twig({
+        base: './src/templates/'
+      }))
+      .pipe(gulp.dest('./dist/templates/'))
+}
+
+
+
 function clean() {
   return gulp.src(dist+'**/*')
     .pipe(gclean());
+}
+
+function message(done) {
+  console.log("hello everyone");
+  done();
 }
 
 function copyImages(){
   return gulp
     .src(['./src/assets/img/**/*'])
     .pipe(gulp.dest('./dist/assets/img/'))
+
 }
 
 function sass() {
@@ -63,12 +80,16 @@ function scripts(){
     .pipe(gulp.dest(dist+js))
 }
 
-const build = gulp.series(clean, gulp.parallel(sass, copyImages, scripts));
+const build = gulp.series(clean, gulp.parallel(sass, copyImages, scripts, compile));
+const buld = gulp.series(clean, compile);
 
 
+exports.buld = buld;
+exports.message = message;
 exports.clean = clean;
 exports.sass = sass;
 exports.copyImages = copyImages;
 exports.scripts = scripts;
+exports.compile = compile;
 exports.build = build;
 exports.default = build;

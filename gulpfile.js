@@ -63,7 +63,7 @@ function scripts(){
     .pipe(gulp.dest(dist+js))
 }
 
-const build = gulp.series(clean, gulp.parallel(sass, copyImages));
+const build = gulp.series(clean, gulp.parallel(sass, copyImages, scripts));
 
 
 exports.clean = clean;

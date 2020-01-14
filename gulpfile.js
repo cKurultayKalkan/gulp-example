@@ -28,7 +28,9 @@ const css = 'assets/css/';
 const scss = './src/assets/scss/styles.scss';
 
 const  sourceJs = [
-  nodeModules + 'bootstrap/dist/js/boostrap.min.js'
+  nodeModules + 'bootstrap/dist/js/bootstrap.min.js',
+  homePath + 'js/main.js',
+  homePath + 'js/alert.js',
 ];
 
 
@@ -53,11 +55,20 @@ function sass() {
     .pipe(gulp.dest(dist+css))
 }
 
+function scripts(){
+  return gulp.src(sourceJs)
+    .pipe(concat('scripts.js'))
+    .pipe(uglify())
+    .pipe(rename('scripts.min.js'))
+    .pipe(gulp.dest(dist+js))
+}
+
 const build = gulp.series(clean, gulp.parallel(sass, copyImages));
 
 
 exports.clean = clean;
 exports.sass = sass;
 exports.copyImages = copyImages;
+exports.scripts = scripts;
 exports.build = build;
 exports.default = build;

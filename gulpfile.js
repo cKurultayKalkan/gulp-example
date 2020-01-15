@@ -29,8 +29,6 @@ const scss = './src/assets/scss/styles.scss';
 
 const  sourceJs = [
   nodeModules + 'bootstrap/dist/js/bootstrap.min.js',
-  homePath + 'js/main.js',
-  homePath + 'js/alert.js',
 ];
 
 
@@ -50,10 +48,6 @@ function clean() {
     .pipe(gclean());
 }
 
-function message(done) {
-  console.log("hello everyone");
-  done();
-}
 
 function copyImages(){
   return gulp
@@ -81,11 +75,8 @@ function scripts(){
 }
 
 const build = gulp.series(clean, gulp.parallel(sass, copyImages, scripts, compile));
-const buld = gulp.series(clean, compile);
 
 
-exports.buld = buld;
-exports.message = message;
 exports.clean = clean;
 exports.sass = sass;
 exports.copyImages = copyImages;

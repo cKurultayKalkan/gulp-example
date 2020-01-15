@@ -72,24 +72,15 @@ function sass() {
     .pipe(gulp.dest(dist+css))
 }
 
-function scripts(){
-  return gulp.src(sourceJs)
-    .pipe(concat('scripts.js'))
-    .pipe(uglify())
-    .pipe(rename('scripts.min.js'))
-    .pipe(gulp.dest(dist+js))
-}
 
-const build = gulp.series(clean, gulp.parallel(sass, copyImages, scripts, compile));
-const buld = gulp.series(clean, compile);
+const build = gulp.series(clean, gulp.parallel(sass, copyImages, compile));
 
 
-exports.buld = buld;
-exports.message = message;
+
 exports.clean = clean;
 exports.sass = sass;
 exports.copyImages = copyImages;
-exports.scripts = scripts;
+
 exports.compile = compile;
 exports.build = build;
 exports.default = build;
